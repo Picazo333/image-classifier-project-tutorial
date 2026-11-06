@@ -1,0 +1,21 @@
+__pycache__
+.env
+.learn
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+*.pyc
+
+# Dataset and generated weights stay out of git.
+# Download: https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
+data/raw/**
+!data/raw/.gitkeep
+data/interim/**
+!data/interim/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+models/**
+!models/.gitkeep
+*.keras
+*.h5
+*.weights.h5

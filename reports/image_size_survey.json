@@ -1,0 +1,18 @@
+{
+  "n": 25000,
+  "modes": {
+    "RGB": 25000
+  },
+  "unique_sizes": 8513,
+  "width": {
+    "min": 42,
+    "max": 1050,
+    "median": 447.0
+  },
+  "height": {
+    "min": 32,
+    "max": 768,
+    "median": 374.0
+  },
+  "not_200x200": 24997
+}

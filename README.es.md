@@ -1,0 +1,113 @@
+# Clasificador de imágenes: perros y gatos
+
+Clasificador convolucional del proyecto 4Geeks `image-classifier-project-tutorial`.
+Entrena EfficientNet-B0 desde pesos aleatorios (`weights=None`) con el zip
+oficial de perros y gatos, usando generadores de Keras a 200×200.
+
+La corrida guiada es el notebook ejecutado `src/explore.ipynb`.
+Las métricas de esa corrida están en `reports/evaluation.txt` y
+`reports/run_manifest.json`. Este README no copia una cifra que no esté ahí.
+
+## Cómo correrlo
+
+Probado con Python 3.11.18, TensorFlow 2.20.0 y Keras 3.15.1. Sin GPU.
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+mkdir -p data/raw
+curl -L -o data/raw/dogs-vs-cats.zip \
+  https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
+pytest -q
+jupyter nbconvert --to notebook --execute src/explore.ipynb \
+  --inplace --ExecutePreprocessor.timeout=21600 \
+  --ExecutePreprocessor.kernel_name=python3
+```
+
+`python src/app.py` comprueba el zip, arma las carpetas por clase y, si ya
+existe un checkpoint, imprime `reports/evaluation.json`. No entrena.
+
+En la CPU de 4 núcleos usada aquí el notebook tarda del orden de 70–90 minutos:
+8 épocas como máximo, unos 8,5 minutos de pasos de entrenamiento cada una,
+más la validación. `EarlyStopping` puede cortar antes. El motivo está en
+`MAX_EPOCHS_REASON` dentro de `src/pipeline.py`.
+
+## Dataset
+
+Hay que descargarlo. No está en git.
+
+- URL: https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
+- Bytes: 581507449
+- SHA-256: `8aabb6755161f0ec2a37f4fa9cff733c304824fe0a5cee652cf021e979d0937b`
+
+La carpeta etiquetada `train/` trae 12 500 `cat.*.jpg` y 12 500 `dog.*.jpg`.
+El censo de tamaños (`reports/image_size_survey.json`) midió 25 000 imágenes
+RGB, 8 513 tamaños distintos, anchura 42–1050 y altura 32–768.
+24 997 no eran ya de 200×200.
+
+`sampleSubmission.csv` no trae etiquetas. El test de este trabajo es un corte
+de las fotos etiquetadas, no ese archivo.
+
+Corte por clase, semilla 42 en gatos y 43 en perros: 10 000 train, 1 250 val
+y 1 250 test. La validación sirve para que `EarlyStopping` vigile `val_loss`.
+Los archivos de `data/processed/` son hard links a `data/raw/`: las fotos no
+se duplican.
+
+## Modelo
+
+```text
+EfficientNetB0(include_top=False, weights=None, input_shape=(200, 200, 3))
+GlobalAveragePooling2D
+Dense(128, relu)
+Dense(2, softmax)
+```
+
+El fragmento del enunciado usa `(224, 224, 3)`. El párrafo anterior exige
+200×200, y ese es el tamaño usado.
+
+Keras 3.15 eliminó `Model.fit_generator`. El notebook igual llama a
+`model.fit_generator(...)`. `ensure_fit_generator` reenvía la llamada a
+`Model.fit`, que es la API actual para generadores y callbacks.
+Ahí entran `ModelCheckpoint` y `EarlyStopping`.
+
+El mejor checkpoint queda en `models/dogs_vs_cats_best.keras`. Git ignora
+`*.keras` y el contenido de `models/` salvo `.gitkeep`. El enunciado no pide
+Git LFS. Los píxeles se dejan en 0–255 porque este EfficientNet reescala
+dentro de la red.
+
+Optimizador: Adam, tasa 1e-4, `clipnorm=1`. El enunciado no fija el optimizador.
+
+## Estructura
+
+- `src/explore.ipynb` — pasos, entrenamiento, curvas, matriz de confusión y muestra de aciertos y errores.
+- `src/pipeline.py` — zip, corte, generadores, modelo y el puente de `fit_generator`.
+- `src/plots.py` — paleta y pila tipográfica de las figuras.
+- `src/app.py` — prepara el corte e imprime métricas ya guardadas.
+- `src/utils.py` — ayuda de base de datos de la plantilla. Este proyecto no la llama.
+- `tests/test_load_pipeline.py` — forma 200×200, etiquetas, semilla y callbacks.
+- `reports/` — curvas, matriz, evaluación y censo de tamaños.
+- `docs/upstream/` — README y `learn.json` originales de la plantilla.
+- `PROVENANCE.md` — commit de la plantilla y hash del dataset.
+- `.devcontainer/` — Codespaces de la plantilla, sin cambios.
+
+## Procedencia
+
+La estructura, el devcontainer, `src/utils.py` y los README de
+`docs/upstream/` vienen de
+https://github.com/4GeeksAcademy/machine-learning-python-template
+commit `b49eff6673b76ba5b0003103e32f62a2eb9904a4`.
+Ese repositorio no publica un archivo LICENSE. No se añadió uno.
+La nota de colaboradores de la plantilla se queda en `docs/upstream/`.
+Este repositorio no añade colaboradores.
+
+No se descargó ni se leyó `solution.ipynb` ni `solution.es.ipynb`.
+Desde este workspace no se envía nada al LMS de 4Geeks.
+
+## Figuras
+
+Las gráficas usan la paleta académica: texto `#18202B` sobre `#F7F8FA`,
+series `#204EA0` y `#B53A17`. Arial y Helvetica no están instaladas;
+Matplotlib usa Arimo, la siguiente de la pila
+(Arial, Helvetica, Arimo, Liberation Sans). No hay interfaz web, así que
+el lockup 4Geeks × Divinivid no aplica.
