@@ -1,0 +1,13 @@
+{
+  "model_path": "models/dogs_vs_cats_best.keras",
+  "model_bytes": 51235467,
+  "model_sha256": "056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95",
+  "retrained": false,
+  "test_samples": 2500,
+  "loss": 0.4657174348831177,
+  "accuracy": 0.7760000228881836,
+  "previous_loss": 0.4657174348831177,
+  "previous_accuracy": 0.7760000228881836,
+  "accuracy_rounded_4": 0.776,
+  "matches_0_7760": true
+}

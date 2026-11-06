@@ -1,0 +1,26 @@
+__pycache__
+.env
+.learn
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+*.pyc
+
+# Dataset stays out of git.
+# Download: https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
+data/raw/**
+!data/raw/.gitkeep
+data/interim/**
+!data/interim/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+
+# Other checkpoints stay out. The statement's saved model is under 100 MB
+# and is tracked: models/dogs_vs_cats_best.keras
+models/*
+!models/.gitkeep
+!models/dogs_vs_cats_best.keras
+*.keras
+*.h5
+*.weights.h5
+!models/dogs_vs_cats_best.keras

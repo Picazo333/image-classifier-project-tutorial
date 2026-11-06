@@ -1,0 +1,69 @@
+{
+  "project": "image-classifier-project-tutorial",
+  "status": "PENDIENTE_REVISION_ORQUESTADOR",
+  "started_at": "2026-11-06T09:39:44+00:00",
+  "notebook_started_at": "2026-11-06T09:56:05+00:00",
+  "notebook_finished_at": "2026-11-06T11:36:51+00:00",
+  "finished_at": "2026-11-06T11:52:12+00:00",
+  "duration_seconds": 7948,
+  "evidence_commit": "68bb52cc4a5147c924b230897fe5c97a19109902",
+  "eval_repair_iterations": 1,
+  "failures_and_repairs": [
+    {
+      "when": "pytest, antes del entrenamiento",
+      "failure": "La capa EfficientNetB0 es Functional y se llama efficientnetb0. El test buscaba 'EfficientNet' en el nombre de la clase.",
+      "repair": "El test ahora comprueba el nombre efficientnetb0 y la clase Functional, más las unidades 128 y 2."
+    },
+    {
+      "when": "pytest, antes del entrenamiento",
+      "failure": "FontProperties(family='sans-serif') lanza ParseException por el guion.",
+      "repair": "La cara se elige recorriendo Arial, Helvetica, Arimo, Liberation Sans. En esta VM queda Arimo."
+    },
+    {
+      "when": "antes de nbconvert, no llegó a ser una corrida fallida",
+      "failure": "El título de la fila de errores habría mostrado 'Errore' al recortar 'Errores'.",
+      "repair": "Mapa explícito Acierto/Error en la celda de la cuadrícula."
+    }
+  ],
+  "verification_commands": [
+    "python -m pytest -q tests/test_load_pipeline.py",
+    "jupyter nbconvert --to notebook --execute src/explore.ipynb --output explore.executed --output-dir /tmp/nbout --ExecutePreprocessor.timeout=21600 --ExecutePreprocessor.kernel_name=dogs-cats-py311",
+    "sha256sum data/raw/dogs-vs-cats.zip",
+    "sha256sum models/dogs_vs_cats_best.keras",
+    "git check-ignore -v models/dogs_vs_cats_best.keras",
+    "python src/app.py"
+  ],
+  "training": {
+    "gpu": false,
+    "max_epochs": 8,
+    "epochs_ran": 8,
+    "steps_per_epoch": 1250,
+    "train_images": 20000,
+    "val_images": 2500,
+    "test_images": 2500,
+    "image_subset": null,
+    "epoch_seconds_sum": 4285.333,
+    "test_accuracy": 0.776,
+    "test_loss": 0.4657174348831177,
+    "best_val_loss": 0.4656011164188385,
+    "best_epoch_1based": 6
+  },
+  "follow_up_before_orchestrator": {
+    "r22": "HITL_ENVIO_MIGUEL",
+    "model_committed": true,
+    "model_bytes": 51235467,
+    "model_sha256": "056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95",
+    "reload_accuracy": 0.7760000228881836,
+    "retrained": false
+  },
+  "tokens_used": null,
+  "tokens_unmeasurable_reason": "Este runtime no entrega un contador de tokens al proceso. No hay objeto de uso de API ni variable de entorno con el total. Una cifra aquí sería inventada.",
+  "tokens_proxy": {
+    "method": "bytes de archivos de trabajo (sin .git, .venv, data, jpeg, zip ni pesos) y duración de reloj. No es un conteo de tokens.",
+    "worktree_files_counted": 46,
+    "worktree_bytes_excluding_dataset_and_weights": 11371563,
+    "executed_notebook_bytes": 5806522,
+    "duration_seconds": 7948,
+    "notebook_wall_seconds": 6046
+  }
+}
