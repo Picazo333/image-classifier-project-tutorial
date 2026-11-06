@@ -2,7 +2,7 @@
 
 Fecha: 2026-11-06. Estado del trabajo: **READY_TO_SUBMIT**. No hubo merge ni envío al LMS.
 
-Commit: `COMMIT_SHA_HERE`.
+Commit: `364d91714ef2acab80abb0506a1a6ec54ce97d96`.
 
 ## Recuento
 
