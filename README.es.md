@@ -16,8 +16,10 @@ paró en la última época prevista, después de dos épocas en las que subió
 (0,4656), no la última (0,5825).
 
 En las 2 500 fotos de test, el checkpoint recargado da pérdida 0,4657 y
-exactitud 0,7760 (1 940 aciertos, 560 errores). La matriz de confusión, con
-filas de etiqueta real cat, dog:
+exactitud 0,7760 (1 940 aciertos, 560 errores). El 77,6% está por debajo del
+80% del SVM de 2007 que menciona el enunciado: el entrenamiento fue desde cero
+(`weights=None`), en CPU y con 8 épocas. La matriz de confusión, con filas de
+etiqueta real cat, dog:
 
 |  | pred cat | pred dog |
 | --- | ---: | ---: |
@@ -85,15 +87,9 @@ Dense(2, softmax)
 El fragmento del enunciado usa `(224, 224, 3)`. El párrafo anterior exige
 200×200, y ese es el tamaño usado.
 
-Keras 3.15 eliminó `Model.fit_generator`. El notebook igual llama a
-`model.fit_generator(...)`. `ensure_fit_generator` reenvía la llamada a
-`Model.fit`, que es la API actual para generadores y callbacks.
-Ahí entran `ModelCheckpoint` y `EarlyStopping`.
+Keras 3 no incluye `Model.fit_generator`, así que `ensure_fit_generator` instala ese método como una delegación a `Model.fit`, que entrena el generador y recibe los callbacks. El notebook llama a `model.fit_generator(...)`. Ahí entran `ModelCheckpoint` y `EarlyStopping`.
 
-El mejor checkpoint queda en `models/dogs_vs_cats_best.keras`. Git ignora
-`*.keras` y el contenido de `models/` salvo `.gitkeep`. El enunciado no pide
-Git LFS. Los píxeles se dejan en 0–255 porque este EfficientNet reescala
-dentro de la red.
+El checkpoint de mejor `val_loss` está en `models/dogs_vs_cats_best.keras` (51 235 467 bytes, menos de 100 MB, por eso se versiona). SHA-256: `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`. Keras 3.15 escribe `.keras`; el enunciado no nombra `.h5` ni pide Git LFS. El resto de `*.keras` sigue ignorado. Una recarga posterior de ese archivo, sin volver a entrenar, repitió la exactitud 0,7760 (`reports/reload_eval.json`). Los píxeles se dejan en 0–255 porque este EfficientNet reescala dentro de la red.
 
 Optimizador: Adam, tasa 1e-4, `clipnorm=1`. El enunciado no fija el optimizador.
 

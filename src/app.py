@@ -32,11 +32,15 @@ def main() -> int:
     if MODEL_PATH.is_file() and metrics_path.is_file():
         print(metrics_path.read_text())
         print(f"modelo: {MODEL_PATH} ({MODEL_PATH.stat().st_size} bytes)")
-        print("Los pesos están en models/ y quedan fuera de git (.gitignore).")
+        print(
+            "models/dogs_vs_cats_best.keras pesa menos de 100 MB y está en el "
+            "repositorio. Otros *.keras siguen fuera de git."
+        )
     else:
         print(
             "No hay checkpoint todavía. El entrenamiento está en "
-            "src/explore.ipynb. Los pesos no se suben al repositorio."
+            "src/explore.ipynb. El archivo de menos de 100 MB se versiona; "
+            "el resto de *.keras no."
         )
     return 0
 

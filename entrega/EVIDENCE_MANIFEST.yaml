@@ -16,8 +16,16 @@ model:
   path: models/dogs_vs_cats_best.keras
   bytes: 51235467
   sha256: 056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95
-  gitignored: true
+  format: keras
+  under_100_mb: true
+  committed: true
+  gitignored: false
   git_lfs: false
+  reload_without_retraining:
+    accuracy: 0.7760000228881836
+    accuracy_rounded_4: 0.776
+    loss: 0.4657174348831177
+    path: reports/reload_eval.json
 notebook:
   path: src/explore.ipynb
   executed: true
@@ -52,6 +60,10 @@ items:
     path: reports/training_curves.png
   - id: [R19, R24, R26, R27, R31]
     path: reports/run_manifest.json
+  - id: [R19, R18]
+    path: models/dogs_vs_cats_best.keras
+  - id: [R19, R18]
+    path: reports/reload_eval.json
   - id: [R20, R12, R17, R29]
     path: src/explore.ipynb
   - id: [R21, R05, R14]

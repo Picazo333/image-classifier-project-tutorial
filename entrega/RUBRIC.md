@@ -1,6 +1,6 @@
 # Rúbrica — image-classifier-project-tutorial
 
-Fuente de autoridad: README del enunciado en `4GeeksAcademy/image-classifier-project-tutorial` commit `aa69493bc3a3930e1656f089498ba70bb9786734`. El encargo de ejecución (generadores, 200×200, no subir imágenes ni pesos, no LMS, no merge, no leer `solution.ipynb`) manda cuando recorta un paso del enunciado; eso se marca BLOCKED u omitido, no PASS.
+Fuente de autoridad: README del enunciado en `4GeeksAcademy/image-classifier-project-tutorial` commit `aa69493bc3a3930e1656f089498ba70bb9786734`. Las imágenes del dataset no se suben. El modelo que pide el paso 5 se versiona si pesa menos de 100 MB. R22 no es un fallo: es un paso de Miguel (`HITL_ENVIO_MIGUEL`) y no cuenta contra el 100%.
 
 | ID | Required | Criterio |
 | --- | --- | --- |
@@ -23,10 +23,10 @@ Fuente de autoridad: README del enunciado en `4GeeksAcademy/image-classifier-pro
 | R16 | sí | Se importan `ModelCheckpoint` y `EarlyStopping`. |
 | R17 | sí | Se crean ambos objetos y se pasan como callbacks a `fit_generator`. |
 | R18 | sí | Se carga el mejor modelo guardado y se predicen las imágenes de test. |
-| R19 | sí | El modelo se guarda en `models/` (carpeta de modelos de la plantilla). Los pesos no entran en git: el enunciado no pide Git LFS y el encargo prohíbe subirlos. |
+| R19 | sí | El modelo se guarda en `models/`. El checkpoint de mejor `val_loss` pesa menos de 100 MB y se versiona en `.keras` (Keras 3; el enunciado no pide `.h5` ni Git LFS). |
 | R20 | sí | `src/explore.ipynb` queda ejecutado, con salidas reales de esta corrida. |
 | R21 | sí | README técnico y neutro: qué es, cómo correrlo, estructura, decisiones, descarga del dataset, sin autoría inventada. |
-| R22 | sí (enunciado) / prohibido por el encargo | Subir el enlace del repo a 4Geeks.com. No se hace. |
+| R22 | HITL_ENVIO_MIGUEL (no cuenta contra el 100%) | Subir el enlace del repo a 4Geeks.com. Lo hace Miguel. No es PASS ni BLOCKED ni FAIL. |
 | R23 | sí (encargo) | Rama de trabajo y pull request contra `main`, sin merge. |
 | R24 | sí (fase 2, sin UI) | SIGNAL en README y gráficas: jerarquía, Arial/Helvetica o el sans disponible documentado, paleta y contraste AA. El lockup no aplica. |
 | R25 | sí (fase 2) | `DESIGN-QA.md` con lo que no aplica justificado (no hay UI). |
@@ -38,4 +38,14 @@ Fuente de autoridad: README del enunciado en `4GeeksAcademy/image-classifier-pro
 | R31 | sí (entrega) | `TELEMETRY.json` con tiempos reales, iteraciones EVAL→REPAIR, y tokens en `null` más `tokens_unmeasurable_reason` y `tokens_proxy`. Ninguna cifra de tokens inventada. |
 | R32 | no exigido por el enunciado | Aumento de datos. Lo menciona el texto corto de `learn.json` del tutorial, no los pasos del README. No se implementa y no cuenta como fallo. |
 
-Estados finales: ver `RUBRIC_JUSTIFICATION.md` después de la evaluación. Un criterio no se marca PASS sin evidencia. UNVERIFIED no es PASS.
+## Conteo
+
+33 filas.
+
+- PASS: 30 (R01–R21 y R23–R31).
+- HITL_ENVIO_MIGUEL: 1 (R22). Fuera del denominador.
+- NO APLICA: 2 (R10b, R32). Fuera del denominador.
+- BLOCKED: 0.
+- FAIL: 0.
+
+Lo que cuenta para el 100% son 30 criterios. Los 30 están en PASS: 30/30.

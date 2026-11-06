@@ -8,7 +8,7 @@ Corrida ejecutada el 2026-11-06. Notebook `src/explore.ipynb` con 12 celdas de c
 | R02 | PASS | No se descargó ni se leyó `solution.ipynb` ni `solution.es.ipynb`. La red, el corte y las métricas salen de este código y de la corrida. | `PROVENANCE.md`; ausencia de esos archivos en el árbol |
 | R03 | PASS | El zip local mide 581 507 449 bytes, el mismo `content-length` de la URL oficial, y su SHA-256 coincide con el fijado en el código. | `src/pipeline.py` `verify_zip`; `reports/split_summary.json` |
 | R04 | PASS | 12 500 `cat.*.jpg` y 12 500 `dog.*.jpg` en `data/raw/dogs-vs-cats/train/`. Esas carpetas no están en git. | Salida del notebook, celda de preparación; `reports/split_summary.json` |
-| R05 | PASS | `.gitignore` ignora `data/raw/**`, `data/processed/**` y `*.keras`, y nombra la URL de descarga. El README repite la URL, el tamaño y el hash. | `.gitignore`; `README.md` sección Dataset |
+| R05 | PASS | `.gitignore` ignora las imágenes (`data/raw/**`, `data/processed/**`) y el resto de `*.keras`. El README documenta la URL, el tamaño y el hash del zip. | `.gitignore`; `README.md` sección Dataset |
 | R06 | PASS | Una sola figura con `dog.0.jpg` … `dog.8.jpg` en orden numérico, cada una con su tamaño original. | `reports/dogs_first9.png`; celda correspondiente de `src/explore.ipynb` |
 | R07 | PASS | La misma figura para `cat.0.jpg` … `cat.8.jpg`. | `reports/cats_first9.png` |
 | R08 | PASS | Las 25 000 fotos son RGB. Hay 8 513 tamaños distintos (anchura 42–1050, altura 32–768). 24 997 no eran 200×200. La cuadrícula de perros muestra tamaños distintos en el título de cada foto. | `reports/image_size_survey.json`; `reports/dogs_first9.png` |
@@ -23,10 +23,10 @@ Corrida ejecutada el 2026-11-06. Notebook `src/explore.ipynb` con 12 celdas de c
 | R16 | PASS | `ModelCheckpoint` y `EarlyStopping` se importan en `build_callbacks` y otra vez en la celda de entrenamiento del notebook. | `src/pipeline.py` línea 440; celda de `fit_generator` |
 | R17 | PASS | Ambos objetos entran en `callbacks` de `model.fit_generator(...)`. Keras 3.15 no trae el método; el notebook imprime `fit_generator_impl wrapper-around-fit`, que delega en `Model.fit`. No existe rueda de TensorFlow 2.15 en este Python. El entrenamiento sí corrió con esos callbacks: el CSV tiene 8 épocas y `stopped_epoch` es 7. | Celda de entrenamiento; `reports/training_log.csv`; `reports/history.json` |
 | R18 | PASS | La celda de evaluación hace `load_model` del checkpoint y predice las 2 500 fotos de test (`prediction_rows: 2500`). La pérdida de test 0,4657 coincide con el mejor `val_loss` (época 6, 0,4656) y no con el de la última época (0,5825). | `reports/evaluation.json`; `reports/history.json` |
-| R19 | PASS | El archivo está en `models/dogs_vs_cats_best.keras` (51 235 467 bytes, SHA-256 `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`). `git check-ignore` lo cubre con `*.keras`. El enunciado no pide Git LFS. | Salida de la última celda del notebook; `.gitignore` |
+| R19 | PASS | El checkpoint de mejor `val_loss` está en `models/dogs_vs_cats_best.keras`: 51 235 467 bytes (menos de 100 MB) y por eso se versiona. SHA-256 `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`. Formato `.keras` de Keras 3.15; el enunciado no pide `.h5` ni Git LFS. Recargado desde `models/`, sin reentrenar, el test repite exactitud 0,7760 y pérdida 0,4657174348831177. | `models/dogs_vs_cats_best.keras`; `reports/reload_eval.json`; `entrega/EVIDENCE_MANIFEST.yaml` |
 | R20 | PASS | `src/explore.ipynb` es la salida de `nbconvert --execute` (`/tmp/nbout/explore.executed.ipynb`, 5 791 911 bytes escritos). 12 celdas de código ejecutadas, 0 errores. | Notebook; `/tmp/nbconvert.log` `EXIT:0` |
 | R21 | PASS | `README.md` y `README.es.md` dicen qué es, cómo correrlo, la estructura, el corte, el 200 frente al 224, el puente de `fit_generator`, la descarga y el resultado medido. Sin colaboradores inventados. | `README.md`; `README.es.md` |
-| R22 | BLOCKED | El enunciado pide subir el enlace a 4Geeks.com. El encargo prohíbe cualquier envío al LMS. No se hizo. | Este archivo; `PROVENANCE.md` |
+| R22 | HITL_ENVIO_MIGUEL | Subir el enlace a 4Geeks.com es un paso de Miguel. No lo hace este trabajo, no es un fallo y no entra en el denominador del 100%. Queda en el checklist de `FINAL_AUDIT.md`. | `entrega/FINAL_AUDIT.md` |
 | R23 | PASS | Rama `cursor/image-classifier-dogs-cats-e277` y pull request contra `main`. No hay merge. | PR (ver reporte); `git` no está en `main` |
 | R24 | PASS | Figuras con texto `#18202B` sobre `#F7F8FA`. Contraste medido: tinta/lienzo 15,44; muted/lienzo 6,22; blanco sobre acción 5,86. Fuente resuelta: Arimo, porque Arial y Helvetica no están instaladas. Series con color y con estilo de línea distinto. Sin UI: el lockup no se usa. | `reports/run_manifest.json` `font` y `contrast`; `src/plots.py`; `DESIGN-QA.md` |
 | R25 | PASS | `entrega/DESIGN-QA.md` y la copia en artifacts. Lo que exige UI queda en NO APLICA con motivo. | `entrega/DESIGN-QA.md` |
@@ -38,4 +38,6 @@ Corrida ejecutada el 2026-11-06. Notebook `src/explore.ipynb` con 12 celdas de c
 | R31 | PASS | `entrega/TELEMETRY.json`: inicio y fin reales, una iteración de reparación previa al entrenamiento, `tokens_used: null`, motivo y proxy. Sin cifra de tokens inventada. | `entrega/TELEMETRY.json` |
 | R32 | NO APLICA | El README paso a paso no pide aumento de datos. El texto corto de `learn.json` del tutorial sí lo menciona; la autoridad es el README. No se entrenó una segunda vez con augmentation. | `entrega/RUBRIC.md` fila R32 |
 
-No queda ningún criterio required aplicable en FAIL. R22 está BLOCKED a propósito.
+## Conteo
+
+33 filas. PASS: 30 (R01–R21, R23–R31). HITL_ENVIO_MIGUEL: 1 (R22, fuera del 100%). NO APLICA: 2 (R10b, R32). BLOCKED: 0. FAIL: 0. Denominador: 30. Resultado: 30/30 PASS.

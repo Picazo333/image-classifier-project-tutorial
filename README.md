@@ -11,7 +11,7 @@ Metrics from that run are in `reports/evaluation.txt` and `reports/run_manifest.
 
 CPU only, 8 full epochs, no image subset. `EarlyStopping(patience=2)` stopped on the last scheduled epoch after validation loss rose for two epochs. The checkpoint kept is the best `val_loss`, epoch 6 of 8 (0.4656), not the last epoch (0.5825).
 
-On the 2 500-image test split the reloaded checkpoint scores loss 0.4657 and accuracy 0.7760 (1 940 correct, 560 wrong). Confusion matrix rows are the true labels cat, dog:
+On the 2 500-image test split the reloaded checkpoint scores loss 0.4657 and accuracy 0.7760 (1 940 correct, 560 wrong). That 77.6% is below the 80% of the 2007 SVM cited in the assignment because training was from scratch (`weights=None`), on CPU, and limited to 8 epochs. Confusion matrix rows are the true labels cat, dog:
 
 |  | pred cat | pred dog |
 | --- | ---: | ---: |
@@ -77,15 +77,9 @@ Dense(2, softmax)
 The assignment's snippet uses `(224, 224, 3)`. The paragraph above that
 snippet requires 200×200, and that is the size used.
 
-Keras 3.15 removed `Model.fit_generator`. The notebook still calls
-`model.fit_generator(...)`. `ensure_fit_generator` forwards that call to
-`Model.fit`, which is the current API for generators and callbacks.
-`ModelCheckpoint` and `EarlyStopping` are both passed in.
+Keras 3 does not include `Model.fit_generator`, so `ensure_fit_generator` adds that method as a delegate to `Model.fit`, which trains on the generator and receives the callbacks. The notebook still calls `model.fit_generator(...)`. `ModelCheckpoint` and `EarlyStopping` are both passed in.
 
-The best checkpoint is `models/dogs_vs_cats_best.keras`. Git ignores `*.keras`
-and everything under `models/` except `.gitkeep`. The assignment does not ask
-for Git LFS. Pixel values stay in 0–255 because this EfficientNet rescales
-inside the network.
+The best `val_loss` checkpoint is `models/dogs_vs_cats_best.keras` (51 235 467 bytes, under 100 MB, so it is committed). SHA-256: `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`. Keras 3.15 writes `.keras`; the assignment does not name `.h5` and does not ask for Git LFS. Other `*.keras` files stay ignored. A later reload of this file, with no further training, repeated test accuracy 0.7760 (`reports/reload_eval.json`). Pixel values stay in 0–255 because this EfficientNet rescales inside the network.
 
 Optimizer: Adam, learning rate 1e-4, `clipnorm=1`. The assignment does not
 name an optimizer.

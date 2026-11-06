@@ -6,4 +6,4 @@ tests/test_load_pipeline.py::test_fit_generator_callbacks_write_checkpoint
     return np.array(x)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-8 passed, 2 warnings in 5.74s
+8 passed, 2 warnings in 4.22s

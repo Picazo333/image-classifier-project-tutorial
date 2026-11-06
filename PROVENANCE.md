@@ -22,7 +22,7 @@
 - URL: https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
 - Bytes: 581507449
 - SHA-256: `8aabb6755161f0ec2a37f4fa9cff733c304824fe0a5cee652cf021e979d0937b`
-- Las imágenes y los pesos del modelo no se versionan. Ver `.gitignore` y el README.
+- Las imágenes no se versionan. El checkpoint de mejor `val_loss`, `models/dogs_vs_cats_best.keras`, pesa 51 235 467 bytes (menos de 100 MB) y sí se versiona. SHA-256: `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`. Otros `*.keras` siguen en `.gitignore`.
 
 ## Entorno medido
 

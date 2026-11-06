@@ -48,6 +48,14 @@
     "best_val_loss": 0.4656011164188385,
     "best_epoch_1based": 6
   },
+  "follow_up_before_orchestrator": {
+    "r22": "HITL_ENVIO_MIGUEL",
+    "model_committed": true,
+    "model_bytes": 51235467,
+    "model_sha256": "056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95",
+    "reload_accuracy": 0.7760000228881836,
+    "retrained": false
+  },
   "tokens_used": null,
   "tokens_unmeasurable_reason": "Este runtime no entrega un contador de tokens al proceso. No hay objeto de uso de API ni variable de entorno con el total. Una cifra aquí sería inventada.",
   "tokens_proxy": {
