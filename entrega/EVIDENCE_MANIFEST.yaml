@@ -1,0 +1,70 @@
+# Evidencias de image-classifier-project-tutorial.
+# evidence_commit se rellena con el commit que contiene el notebook ejecutado
+# y estos informes. El SHA del head del PR puede ser un commit posterior
+# si solo actualiza este campo; el cuerpo de la evidencia no cambia.
+
+project: image-classifier-project-tutorial
+status: PENDIENTE_REVISION_ORQUESTADOR
+evidence_commit: PENDING_COMMIT
+template_commit: b49eff6673b76ba5b0003103e32f62a2eb9904a4
+statement_commit: aa69493bc3a3930e1656f089498ba70bb9786734
+dataset:
+  url: https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip
+  bytes: 581507449
+  sha256: 8aabb6755161f0ec2a37f4fa9cff733c304824fe0a5cee652cf021e979d0937b
+model:
+  path: models/dogs_vs_cats_best.keras
+  bytes: 51235467
+  sha256: 056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95
+  gitignored: true
+  git_lfs: false
+notebook:
+  path: src/explore.ipynb
+  executed: true
+  nbconvert_exit: 0
+  finished_at: "2026-11-06T11:36:51+00:00"
+items:
+  - id: [R01]
+    path: PROVENANCE.md
+  - id: [R01]
+    path: docs/upstream/README.md
+  - id: [R03, R04, R11]
+    path: reports/split_summary.json
+  - id: [R05]
+    path: .gitignore
+  - id: [R06, R08]
+    path: reports/dogs_first9.png
+  - id: [R07]
+    path: reports/cats_first9.png
+  - id: [R08]
+    path: reports/image_size_survey.json
+  - id: [R09, R10, R12, R14, R16, R17, R28]
+    path: src/pipeline.py
+  - id: [R15, R17, R18]
+    path: reports/history.json
+  - id: [R15, R17]
+    path: reports/training_log.csv
+  - id: [R15, R18, R26, R27, R29]
+    path: reports/evaluation.json
+  - id: [R15, R18]
+    path: reports/evaluation.txt
+  - id: [R15, R24]
+    path: reports/training_curves.png
+  - id: [R19, R24, R26, R27, R31]
+    path: reports/run_manifest.json
+  - id: [R20, R12, R17, R29]
+    path: src/explore.ipynb
+  - id: [R21, R05, R14]
+    path: README.md
+  - id: [R26]
+    path: reports/confusion_matrix.png
+  - id: [R27]
+    path: reports/sample_predictions.png
+  - id: [R30]
+    path: tests/test_load_pipeline.py
+  - id: [R30]
+    path: reports/pytest.txt
+  - id: [R24, R25]
+    path: entrega/DESIGN-QA.md
+  - id: [R24]
+    path: src/plots.py

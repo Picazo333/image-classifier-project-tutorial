@@ -1,0 +1,38 @@
+{
+  "zip_bytes": 581507449,
+  "zip_sha256": "8aabb6755161f0ec2a37f4fa9cff733c304824fe0a5cee652cf021e979d0937b",
+  "zip_url": "https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip",
+  "cats": 12500,
+  "dogs": 12500,
+  "split_counts": {
+    "cat": {
+      "train": 10000,
+      "val": 1250,
+      "test": 1250
+    },
+    "dog": {
+      "train": 10000,
+      "val": 1250,
+      "test": 1250
+    }
+  },
+  "seed": 42,
+  "size_survey": {
+    "n": 25000,
+    "modes": {
+      "RGB": 25000
+    },
+    "unique_sizes": 8513,
+    "width": {
+      "min": 42,
+      "max": 1050,
+      "median": 447.0
+    },
+    "height": {
+      "min": 32,
+      "max": 768,
+      "median": 374.0
+    },
+    "not_200x200": 24997
+  }
+}

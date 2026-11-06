@@ -1,0 +1,41 @@
+# Justificación de la rúbrica
+
+Corrida ejecutada el 2026-11-06. Notebook `src/explore.ipynb` con 12 celdas de código, todas con `execution_count` y ninguna salida de error. `jupyter nbconvert` terminó con `EXIT:0` a las 2026-11-06T11:36:51+00:00.
+
+| ID | Estado | Cómo se cumplió | Evidencia |
+| --- | --- | --- | --- |
+| R01 | PASS | Se copió el árbol de `4GeeksAcademy/machine-learning-python-template` en el commit `b49eff6673b76ba5b0003103e32f62a2eb9904a4`. Los README originales están en `docs/upstream/`. El repo de la plantilla no publica LICENSE y no se inventó uno ni colaboradores. | `PROVENANCE.md`; `docs/upstream/README.md`; `src/utils.py` |
+| R02 | PASS | No se descargó ni se leyó `solution.ipynb` ni `solution.es.ipynb`. La red, el corte y las métricas salen de este código y de la corrida. | `PROVENANCE.md`; ausencia de esos archivos en el árbol |
+| R03 | PASS | El zip local mide 581 507 449 bytes, el mismo `content-length` de la URL oficial, y su SHA-256 coincide con el fijado en el código. | `src/pipeline.py` `verify_zip`; `reports/split_summary.json` |
+| R04 | PASS | 12 500 `cat.*.jpg` y 12 500 `dog.*.jpg` en `data/raw/dogs-vs-cats/train/`. Esas carpetas no están en git. | Salida del notebook, celda de preparación; `reports/split_summary.json` |
+| R05 | PASS | `.gitignore` ignora `data/raw/**`, `data/processed/**` y `*.keras`, y nombra la URL de descarga. El README repite la URL, el tamaño y el hash. | `.gitignore`; `README.md` sección Dataset |
+| R06 | PASS | Una sola figura con `dog.0.jpg` … `dog.8.jpg` en orden numérico, cada una con su tamaño original. | `reports/dogs_first9.png`; celda correspondiente de `src/explore.ipynb` |
+| R07 | PASS | La misma figura para `cat.0.jpg` … `cat.8.jpg`. | `reports/cats_first9.png` |
+| R08 | PASS | Las 25 000 fotos son RGB. Hay 8 513 tamaños distintos (anchura 42–1050, altura 32–768). 24 997 no eran 200×200. La cuadrícula de perros muestra tamaños distintos en el título de cada foto. | `reports/image_size_survey.json`; `reports/dogs_first9.png` |
+| R09 | PASS | `IMAGE_SIZE = (200, 200)` y `flow_from_directory(..., target_size=image_size)`. El lote de entrenamiento impreso es `(batch, 200, 200, 3)`. | `src/pipeline.py` líneas 32 y 330; test `test_flow_directory_batch_shape_and_seed` |
+| R10 | PASS | Se usa `ImageDataGenerator` + `flow_from_directory`. El tensor float32 de 25 000×200×200×3 pesa 11,176 GiB y la VM tenía un globo de memoria de unos 10 GiB. El encargo pide esta ruta. | `src/pipeline.py` `flow_directory` y `hardware_note`; `reports/run_manifest.json` |
+| R10b | NO APLICA | Es la alternativa excluyente (cargar las 25 000 en RAM). No se implementa porque se cumple R10. | `reports/run_manifest.json` campo `float32_tensor_gib_25000x200x200x3` |
+| R11 | PASS | Por clase: 10 000 train, 1 250 val, 1 250 test, con subcarpetas `cat` y `dog`. La validación es extra para `val_loss`; train y test son los directorios que pide el enunciado. | `reports/split_summary.json`; `materialize_split` |
+| R12 | PASS | `make_generators` crea `trdata` y `tsdata` (y `valdata`). El notebook los nombra así. | `src/pipeline.py` `make_generators`; celdas del notebook |
+| R13 | PASS | `class_mode="categorical"` y `classes=["cat", "dog"]`. El test comprueba `class_indices == {"cat": 0, "dog": 1}` y filas one-hot. | `tests/test_load_pipeline.py` `test_flow_directory_batch_shape_and_seed` |
+| R14 | PASS | `EfficientNetB0(include_top=False, weights=None, input_shape=(200, 200, 3))`, `GlobalAveragePooling2D`, `Dense(128, relu)`, `Dense(2, softmax)`. El 224 del fragmento no se usa: el texto obliga 200×200. Queda escrito en el README y en `run_manifest.json`. | `src/pipeline.py` `build_model`; `reports/run_manifest.json` |
+| R15 | PASS | 8 épocas completas, 1 250 pasos por época, 20 000 imágenes de entrenamiento. Pérdida de entrenamiento 0,669 → 0,290. Test: pérdida 0,4657, exactitud 0,7760. | `reports/history.json`; `reports/training_log.csv`; `reports/evaluation.txt` |
+| R16 | PASS | `ModelCheckpoint` y `EarlyStopping` se importan en `build_callbacks` y otra vez en la celda de entrenamiento del notebook. | `src/pipeline.py` línea 440; celda de `fit_generator` |
+| R17 | PASS | Ambos objetos entran en `callbacks` de `model.fit_generator(...)`. Keras 3.15 no trae el método; el notebook imprime `fit_generator_impl wrapper-around-fit`, que delega en `Model.fit`. No existe rueda de TensorFlow 2.15 en este Python. El entrenamiento sí corrió con esos callbacks: el CSV tiene 8 épocas y `stopped_epoch` es 7. | Celda de entrenamiento; `reports/training_log.csv`; `reports/history.json` |
+| R18 | PASS | La celda de evaluación hace `load_model` del checkpoint y predice las 2 500 fotos de test (`prediction_rows: 2500`). La pérdida de test 0,4657 coincide con el mejor `val_loss` (época 6, 0,4656) y no con el de la última época (0,5825). | `reports/evaluation.json`; `reports/history.json` |
+| R19 | PASS | El archivo está en `models/dogs_vs_cats_best.keras` (51 235 467 bytes, SHA-256 `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`). `git check-ignore` lo cubre con `*.keras`. El enunciado no pide Git LFS. | Salida de la última celda del notebook; `.gitignore` |
+| R20 | PASS | `src/explore.ipynb` es la salida de `nbconvert --execute` (`/tmp/nbout/explore.executed.ipynb`, 5 791 911 bytes escritos). 12 celdas de código ejecutadas, 0 errores. | Notebook; `/tmp/nbconvert.log` `EXIT:0` |
+| R21 | PASS | `README.md` y `README.es.md` dicen qué es, cómo correrlo, la estructura, el corte, el 200 frente al 224, el puente de `fit_generator`, la descarga y el resultado medido. Sin colaboradores inventados. | `README.md`; `README.es.md` |
+| R22 | BLOCKED | El enunciado pide subir el enlace a 4Geeks.com. El encargo prohíbe cualquier envío al LMS. No se hizo. | Este archivo; `PROVENANCE.md` |
+| R23 | PASS | Rama `cursor/image-classifier-dogs-cats-e277` y pull request contra `main`. No hay merge. | PR (ver reporte); `git` no está en `main` |
+| R24 | PASS | Figuras con texto `#18202B` sobre `#F7F8FA`. Contraste medido: tinta/lienzo 15,44; muted/lienzo 6,22; blanco sobre acción 5,86. Fuente resuelta: Arimo, porque Arial y Helvetica no están instaladas. Series con color y con estilo de línea distinto. Sin UI: el lockup no se usa. | `reports/run_manifest.json` `font` y `contrast`; `src/plots.py`; `DESIGN-QA.md` |
+| R25 | PASS | `entrega/DESIGN-QA.md` y la copia en artifacts. Lo que exige UI queda en NO APLICA con motivo. | `entrega/DESIGN-QA.md` |
+| R26 | PASS | Matriz de confusión en el notebook y en `reports/confusion_matrix.png`: `[[912, 338], [222, 1028]]`. | `reports/confusion_matrix.png`; `reports/evaluation.json` |
+| R27 | PASS | Cuadrícula con 6 aciertos y 6 errores reales. Hay 1 940 aciertos y 560 errores; no se rellenó ningún hueco. Los seis primeros de cada grupo siguen el orden del generador de test, por eso los aciertos visibles son gatos (van primero). | `reports/sample_predictions.png`; celda que imprime `hits_available 1940` |
+| R28 | PASS | Semilla 42 en Python, NumPy y TensorFlow, en el corte y en los generadores. El perro usa semilla 43 para que su permutación no dependa del número de gatos. | `src/pipeline.py` `SEED`, `set_seed`, `assign_splits` |
+| R29 | PASS | La celda de evaluación vuelve a fijar la semilla, reconstruye `tsdata` con `shuffle=False` y carga el modelo desde disco. No reutiliza el objeto entrenado en memoria. | Celda «Evaluación reproducible»; `reports/evaluation.json` `shuffle_test: false` |
+| R30 | PASS | `pytest`: 8 passed. Cubre forma 200×200, etiquetas, repetición del lote con la misma semilla, arquitectura y que `fit_generator` escribe un checkpoint. | `reports/pytest.txt`; `tests/test_load_pipeline.py` |
+| R31 | PASS | `entrega/TELEMETRY.json`: inicio y fin reales, una iteración de reparación previa al entrenamiento, `tokens_used: null`, motivo y proxy. Sin cifra de tokens inventada. | `entrega/TELEMETRY.json` |
+| R32 | NO APLICA | El README paso a paso no pide aumento de datos. El texto corto de `learn.json` del tutorial sí lo menciona; la autoridad es el README. No se entrenó una segunda vez con augmentation. | `entrega/RUBRIC.md` fila R32 |
+
+No queda ningún criterio required aplicable en FAIL. R22 está BLOCKED a propósito.

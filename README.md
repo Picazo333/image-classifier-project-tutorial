@@ -6,7 +6,19 @@ dogs-vs-cats zip, using Keras generators at 200×200.
 
 The guided run is the executed notebook `src/explore.ipynb`.
 Metrics from that run are in `reports/evaluation.txt` and `reports/run_manifest.json`.
-This README does not restate a number that is not in those files.
+
+## Result of the executed run
+
+CPU only, 8 full epochs, no image subset. `EarlyStopping(patience=2)` stopped on the last scheduled epoch after validation loss rose for two epochs. The checkpoint kept is the best `val_loss`, epoch 6 of 8 (0.4656), not the last epoch (0.5825).
+
+On the 2 500-image test split the reloaded checkpoint scores loss 0.4657 and accuracy 0.7760 (1 940 correct, 560 wrong). Confusion matrix rows are the true labels cat, dog:
+
+|  | pred cat | pred dog |
+| --- | ---: | ---: |
+| cat | 912 | 338 |
+| dog | 222 | 1028 |
+
+Per-class detail is in `reports/evaluation.txt`. Curves: `reports/training_curves.png`.
 
 ## Run
 

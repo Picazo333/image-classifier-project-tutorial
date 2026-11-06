@@ -1,0 +1,110 @@
+{
+  "seed": 42,
+  "image_size": [
+    200,
+    200
+  ],
+  "batch_size": 16,
+  "max_epochs": 8,
+  "max_epochs_reason": "El enunciado no fija el n\u00famero de \u00e9pocas. No hay GPU en esta VM. Una sonda de 8 pasos (batch 16) el 2026-11-06 midi\u00f3 19,97 s en el primer paso y 0,406 s de media en los siete siguientes. Una \u00e9poca son 1250 pasos de entrenamiento (unas 8,5 min) m\u00e1s 157 de validaci\u00f3n. El cupo es 8 \u00e9pocas completas, con EarlyStopping(patience=2, monitor=val_loss). No se recorta el conjunto de im\u00e1genes.",
+  "max_steps_per_epoch": null,
+  "subset_note": "No se usa un subconjunto: steps_per_epoch cubre todas las im\u00e1genes del split de entrenamiento y validation_steps cubre toda la validaci\u00f3n.",
+  "steps_per_epoch": 1250,
+  "learning_rate": 0.0001,
+  "weights": null,
+  "input_shape": [
+    200,
+    200,
+    3
+  ],
+  "snippet_input_shape_not_used": [
+    224,
+    224,
+    3
+  ],
+  "fit_generator_impl": "wrapper-around-fit",
+  "early_stopping_patience": 2,
+  "early_stopping_monitor": "val_loss",
+  "stopped_epoch": 7,
+  "epoch_seconds": [
+    554.719,
+    517.558,
+    540.034,
+    518.796,
+    524.756,
+    534.66,
+    526.984,
+    567.826
+  ],
+  "history": {
+    "accuracy": [
+      0.6053000092506409,
+      0.6629499793052673,
+      0.7091000080108643,
+      0.7524499893188477,
+      0.7881500124931335,
+      0.8205500245094299,
+      0.8554499745368958,
+      0.8758000135421753
+    ],
+    "loss": [
+      0.6688210964202881,
+      0.6155732274055481,
+      0.5598852038383484,
+      0.5046384334564209,
+      0.4518870711326599,
+      0.3979943096637726,
+      0.33480584621429443,
+      0.29036498069763184
+    ],
+    "val_accuracy": [
+      0.6660000085830688,
+      0.6972000002861023,
+      0.7228000164031982,
+      0.758400022983551,
+      0.7847999930381775,
+      0.782800018787384,
+      0.7907999753952026,
+      0.7616000175476074
+    ],
+    "val_loss": [
+      0.6187682151794434,
+      0.5808308124542236,
+      0.5524910688400269,
+      0.4932939410209656,
+      0.4879136085510254,
+      0.4656011164188385,
+      0.5103081464767456,
+      0.5824826955795288
+    ]
+  },
+  "test_loss": 0.4657174348831177,
+  "test_accuracy": 0.7760000228881836,
+  "test_hits": 1940,
+  "test_errors": 560,
+  "test_samples": 2500,
+  "model_bytes": 51235467,
+  "model_sha256": "056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95",
+  "font": "Arimo",
+  "contrast": {
+    "ink_on_canvas": 15.44,
+    "ink_on_surface": 16.4,
+    "muted_on_canvas": 6.22,
+    "on_action_on_action": 5.86,
+    "info_on_surface": 7.9,
+    "action_on_surface": 5.86,
+    "success_on_surface": 7.14,
+    "danger_on_surface": 7.2
+  },
+  "hardware": {
+    "gpu": false,
+    "cpu_count": 4,
+    "mem_total_kib": 16387328,
+    "float32_tensor_gib_25000x200x200x3": 11.176
+  },
+  "tensorflow": "2.20.0",
+  "keras": "3.15.1",
+  "python": "3.11.18",
+  "template_commit": "b49eff6673b76ba5b0003103e32f62a2eb9904a4",
+  "dataset_url": "https://storage.googleapis.com/datascience-materials/dogs-vs-cats.zip"
+}

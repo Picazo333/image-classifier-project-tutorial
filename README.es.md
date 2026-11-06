@@ -6,7 +6,26 @@ oficial de perros y gatos, usando generadores de Keras a 200×200.
 
 La corrida guiada es el notebook ejecutado `src/explore.ipynb`.
 Las métricas de esa corrida están en `reports/evaluation.txt` y
-`reports/run_manifest.json`. Este README no copia una cifra que no esté ahí.
+`reports/run_manifest.json`.
+
+## Resultado de la corrida ejecutada
+
+Solo CPU, 8 épocas completas, sin recortar imágenes. `EarlyStopping(patience=2)`
+paró en la última época prevista, después de dos épocas en las que subió
+`val_loss`. El checkpoint conservado es el de menor `val_loss`: la época 6 de 8
+(0,4656), no la última (0,5825).
+
+En las 2 500 fotos de test, el checkpoint recargado da pérdida 0,4657 y
+exactitud 0,7760 (1 940 aciertos, 560 errores). La matriz de confusión, con
+filas de etiqueta real cat, dog:
+
+|  | pred cat | pred dog |
+| --- | ---: | ---: |
+| cat | 912 | 338 |
+| dog | 222 | 1028 |
+
+El detalle por clase está en `reports/evaluation.txt`. Las curvas, en
+`reports/training_curves.png`.
 
 ## Cómo correrlo
 
