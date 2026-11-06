@@ -8,6 +8,8 @@ La corrida guiada es el notebook ejecutado `src/explore.ipynb`.
 Las métricas de esa corrida están en `reports/evaluation.txt` y
 `reports/run_manifest.json`.
 
+Modelo versionado en git normal, sin LFS: `models/dogs_vs_cats_best.keras`, 51 235 467 bytes (unos 51,2 MB), SHA-256 `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`.
+
 ## Resultado de la corrida ejecutada
 
 Solo CPU, 8 épocas completas, sin recortar imágenes. `EarlyStopping(patience=2)`

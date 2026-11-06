@@ -4,7 +4,8 @@
 # si solo actualiza este campo; el cuerpo de la evidencia no cambia.
 
 project: image-classifier-project-tutorial
-status: PENDIENTE_REVISION_ORQUESTADOR
+status: READY_TO_SUBMIT
+commit: COMMIT_SHA_HERE
 evidence_commit: 68bb52cc4a5147c924b230897fe5c97a19109902
 template_commit: b49eff6673b76ba5b0003103e32f62a2eb9904a4
 statement_commit: aa69493bc3a3930e1656f089498ba70bb9786734

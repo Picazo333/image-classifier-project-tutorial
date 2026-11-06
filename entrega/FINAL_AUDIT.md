@@ -1,6 +1,8 @@
 # Auditoría final
 
-Fecha: 2026-11-06. Estado del trabajo: **PENDIENTE_REVISION_ORQUESTADOR**. No está marcado READY_TO_SUBMIT. No hubo merge ni envío al LMS.
+Fecha: 2026-11-06. Estado del trabajo: **READY_TO_SUBMIT**. No hubo merge ni envío al LMS.
+
+Commit: `COMMIT_SHA_HERE`.
 
 ## Recuento
 

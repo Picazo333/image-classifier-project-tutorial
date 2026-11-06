@@ -7,6 +7,8 @@ dogs-vs-cats zip, using Keras generators at 200×200.
 The guided run is the executed notebook `src/explore.ipynb`.
 Metrics from that run are in `reports/evaluation.txt` and `reports/run_manifest.json`.
 
+Model tracked in normal git, without LFS: `models/dogs_vs_cats_best.keras`, 51 235 467 bytes (about 51.2 MB), SHA-256 `056311485172c06ee84a3a00a24bb0b3ee57a00939af5e52c222943f98c8df95`.
+
 ## Result of the executed run
 
 CPU only, 8 full epochs, no image subset. `EarlyStopping(patience=2)` stopped on the last scheduled epoch after validation loss rose for two epochs. The checkpoint kept is the best `val_loss`, epoch 6 of 8 (0.4656), not the last epoch (0.5825).
