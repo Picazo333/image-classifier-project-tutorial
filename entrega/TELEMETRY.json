@@ -4,8 +4,9 @@
   "started_at": "2026-11-06T09:39:44+00:00",
   "notebook_started_at": "2026-11-06T09:56:05+00:00",
   "notebook_finished_at": "2026-11-06T11:36:51+00:00",
-  "finished_at": "2026-11-06T11:51:30+00:00",
-  "duration_seconds": 7906,
+  "finished_at": "2026-11-06T11:52:12+00:00",
+  "duration_seconds": 7948,
+  "evidence_commit": "68bb52cc4a5147c924b230897fe5c97a19109902",
   "eval_repair_iterations": 1,
   "failures_and_repairs": [
     {
@@ -54,7 +55,7 @@
     "worktree_files_counted": 46,
     "worktree_bytes_excluding_dataset_and_weights": 11371563,
     "executed_notebook_bytes": 5806522,
-    "duration_seconds": 7906,
+    "duration_seconds": 7948,
     "notebook_wall_seconds": 6046
   }
 }
